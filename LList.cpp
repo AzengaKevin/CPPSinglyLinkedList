@@ -263,11 +263,91 @@ void LList::reverse(){
    
 }
 
+void LList::splice(LList& other, int pos){
 
+   if(pos < 0) return;
+
+   if(pos == 0){
+
+      other.reverse();
+
+      while (other.head != nullptr){
+
+         cons(other.first());
+
+         other.head = other.head->next;
+      }
+
+      return;
+
+   }
+
+   if(pos >= length()){
+
+      while (other.head != nullptr){
+
+         append(other.first());
+
+         other.head = other.head->next;
+      }
+
+      return;
+
+   }
+   
+   if(other.length() > 0){
+      
+   }
+   
+}
+
+
+LList::LList(const LList& other){
+
+   this->head = nullptr;
+
+   Node *tempNode = other.head;
+
+   while (tempNode != nullptr)
+   {
+      append(tempNode->item);
+      
+      tempNode = tempNode->next;
+   }
+   
+}
+
+LList & LList::operator= (const LList& other){
+
+   head = nullptr;
+
+   Node *tempNode = other.head;
+
+   while (tempNode != nullptr)
+   {
+      append(tempNode->item);
+      
+      tempNode = tempNode->next;
+   }
+
+   return *this;
+
+}
 
 // destructor
 // postcondition: 
-//   NEEDS comment
+
+/**
+ * Delete all the pointers from the memory
+ */
 LList::~LList(){
-   // NEEDS code .... empty for now
+   
+   Node *tempNode = head;
+
+   while(tempNode != nullptr){
+      tempNode = tempNode->next;
+      delete head;
+      head = tempNode;
+   }
+
 }
